@@ -1,0 +1,12 @@
+{
+  "zap": {
+    "dir": "E:\\Lab\\setup\\zap\\data\\Zed Attack Proxy",
+    "bat": "zap.bat",
+    "report_file": "Report/Raw/Zap_report/zap_rp.json",
+    "api_key": "changeme"
+  },
+  "wapiti": {
+    "path": "wapiti",
+    "report_file": "Report/Raw/Wapiti_report/wapiti_rp.json"
+  }
+}
