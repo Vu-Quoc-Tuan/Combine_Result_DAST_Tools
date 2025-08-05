@@ -1,9 +1,10 @@
 import subprocess
 import json
-from pathlib import Path
-from zapv2 import ZAPv2
 import time
 import requests
+import os
+from pathlib import Path
+from zapv2 import ZAPv2
 
 def run_zap_proxy():
     """Chạy ZAP Proxy để khởi tạo server."""
@@ -21,7 +22,7 @@ def run_zap_proxy():
     command = [
         zap_bat_path,
         '-daemon',
-        '-config', f'api.key=={api_key}'
+        '-config', f'api.key={api_key}'
     ]
     # khởi tạo ZAP Proxy
     try:
@@ -70,7 +71,7 @@ def run_zap_scan(target_url: str):
     print('Ajax Spider start')
     scanID = zap.ajaxSpider.scan(target_url)
 
-    timeout = time.time() + 60*2   # 2 minutes from now
+    timeout = time.time() + 60*1   # 1 minutes from now
     # Loop until the ajax spider has finished or the timeout has exceeded
     while zap.ajaxSpider.status == 'running':
         if time.time() > timeout:
@@ -101,18 +102,32 @@ def run_zap_scan(target_url: str):
     print('Active scan completed')
 
     # Lưu báo cáo
+    print("🧩 Cài đặt add-on SARIF (nếu chưa có) ...")
+    zap.autoupdate.install_addon("sarif-json", apikey=api_key)
+    time.sleep(10)  # Đợi để add-on được load
+
     ZAP_HOST = 'http://localhost:8080'
-    REPORT_URL = f'{ZAP_HOST}/OTHER/core/other/jsonreport/?apikey={api_key}'
+    ZAP_Internal_DIR = str(report_file.parent)
+    REPORT_FILENAME = os.path.basename(report_file)
 
-    response = requests.get(REPORT_URL)
+    generate_url = f'{ZAP_HOST}/JSON/reports/action/generate/'
+    params = {
+        'apikey': api_key,
+        'template': 'sarif-json',
+        'title': 'ZAP Report SARIF',
+        'reportDir': ZAP_Internal_DIR,
+        'reportFileName': REPORT_FILENAME
+    }
 
-    if response.status_code == 200:
-        with open(report_file, 'w', encoding='utf-8') as f:
-            f.write(response.text)
-        print(f'✅ Report saved: {report_file}')
-
-    else:
-        print(f'❌ Failed to get report: {response.status_code}')
+    try:
+        res_response = requests.get(generate_url, params=params)
+        if res_response.status_code == 200:
+            print(f'✅ Report created successfully: {res_response.text}')
+        else:
+            print(f'❌ Failed to create report: {res_response.status_code}')
+            return False
+    except Exception as e:
+        print(f'❌ LỖI: Không thể tạo báo cáo. {e}')
         return False
 
     print("🛑 Tắt ZAP...")
