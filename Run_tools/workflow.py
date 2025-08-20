@@ -13,11 +13,13 @@ def start_scans(target_url: str):
     if not target_url.startswith("http://") and not target_url.startswith("https://"):
         print("❌ LỖI: URL mục tiêu phải bắt đầu bằng 'http://' hoặc 'https://'.")
         return
-        
-    process = run_zap_proxy()
-    time.sleep(15)  # Đợi một chút để ZAP Proxy khởi động hoàn toàn
+
+
+    wapiti_success = run_wapiti_scan(target_url)    
+    run_zap_proxy()
+    time.sleep(20)
     zap_success = run_zap_scan(target_url)
-    wapiti_success = run_wapiti_scan(target_url)
+    
     
     if wapiti_success and zap_success:
         print("\n--- HOÀN TẤT QUY TRÌNH QUÉT ---")

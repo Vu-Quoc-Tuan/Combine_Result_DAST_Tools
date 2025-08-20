@@ -31,7 +31,7 @@ def main_workflow():
     # Kiểm tra chế độ chạy
     if args.mode == 1:
         # Giai đoạn 1: Chạy các công cụ quét với URL từ người dùng
-        start_scans(args.target_url)
+        # start_scans(args.target_url)
         
         print("\nChờ 5 giây trước khi chuyển sang giai đoạn hợp nhất...\n")
         time.sleep(5)

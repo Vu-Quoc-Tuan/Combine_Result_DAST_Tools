@@ -3,10 +3,16 @@
     "dir": "E:\\Lab\\setup\\zap\\data\\Zed Attack Proxy",
     "bat": "zap.bat",
     "report_file": "Report/Raw/Zap_report/zap_sarif.json",
-    "api_key": "changeme"
+    "api_key": "changeme",
+    "firefox_binary": "E:\\Setup-newPC\\firefox\\data\\firefox.exe",
+    "geckodriver_path": "C:\\Users\\Lenovo\\ZAP\\webdriver\\windows\\64\\geckodriver.exe"
+
   },
   "wapiti": {
     "path": "wapiti",
     "report_file": "Report/Raw/Wapiti_report/wapiti_rp.json"
+  },
+  "merge": {
+    "output_file": "Report/Combine_report/merged_sarif.json"
   }
 }
