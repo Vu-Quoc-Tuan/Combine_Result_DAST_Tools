@@ -123,7 +123,7 @@ def run_zap_scan(target_url: str):
         timeout = time.time() + 60*2 
         
         while True:
-            st = zap.ajaxSpider.status() 
+            st = zap.ajaxSpider.status 
             if st == 'stopped':
                 break
             if time.time() > timeout:
@@ -175,19 +175,49 @@ def run_zap_scan(target_url: str):
 
         policy_name = 'ComprehensiveScan'
         existing_policies = [p['name'] for p in zap.ascan.policies()]
+        # if policy_name in existing_policies:
+        #     zap.ascan.remove_scan_policy(policy_name)
         if policy_name in existing_policies:
-            zap.ascan.remove_scan_policy(policy_name)
+            try:
+                zap.ascan.remove_scan_policy(policy_name)
+                time.sleep(1)  # Chờ xóa xong
+            except Exception as e:
+                print(f"   ⚠️ Không thể xóa policy {policy_name}: {e} (tiếp tục)")
         
         zap.ascan.add_scan_policy(policy_name)
         zap.ascan.disable_all_scanners(scanpolicyname=policy_name)
         
+        # important_scanners = [
+        #     '40012',  # Cross Site Scripting (Reflected)
+        #     '40014',  # Cross Site Scripting (Persistent)
+        #     '40016',  # Cross Site Scripting (Persistent) - Prime
+        #     '40017',  # Cross Site Scripting (Persistent) - Spider
+        #     '40018',  # Cross Site Scripting (Persistent) - OData
+        # ]
+        # important_scanners = [
+        #     '90019',  # Code Injection
+        #     '90020',  # Command Injection
+        #     '90037',  # Remote OS Command Injection
+        # ]
+        # important_scanners = [
+        #     '10010',  # Cookie No HttpOnly Flag
+        #     '10011',  # Cookie Without Secure Flag
+        #     '10054',  # Cookie without SameSite Attribute
+        # ]
+        # important_scanners = [
+        #     '40015',  # LDAP Injection
+        # ]
         important_scanners = [
-            '40012',  # Cross Site Scripting (Reflected)
-            '40014',  # Cross Site Scripting (Persistent)
-            '40016',  # Cross Site Scripting (Persistent) - Prime
-            '40017',  # Cross Site Scripting (Persistent) - Spider
-            '40018',  # Cross Site Scripting (Persistent) - OData
-        ]
+        '6',    # Path Traversal
+        '6-1',
+        '6-2',
+        '6-3',
+        '6-4',
+        '6-5',
+    ]
+
+
+
         for scanner_id in important_scanners:
             try:
                 zap.ascan.enable_scanners(scanner_id, scanpolicyname=policy_name)
@@ -204,9 +234,29 @@ def run_zap_scan(target_url: str):
         for idx, url in enumerate(targets, 1):
             print(f"   ▶️ Scan {idx}/{len(targets)}: {url}")
             scan_id = zap.ascan.scan(url, recurse=False, scanpolicyname=policy_name) 
+
+            if scan_id == 'does_not_exist':
+                print(f"      ⚠️ URL_NOT_FOUND: {url} (bỏ qua)")
+                continue
+            try:
+                scan_id_int = int(scan_id)
+            except ValueError:
+                print(f"      ⚠️ ScanId không hợp lệ: {scan_id} (bỏ qua)")
+                continue
+
             time.sleep(2)
             while int(zap.ascan.status(scan_id)) < 100:
-                progress = zap.ascan.status(scan_id)
+                # progress = zap.ascan.status(scan_id)
+                try:
+                    progress = zap.ascan.status(scan_id)
+                    progress_int = int(progress)
+                except Exception as e:
+                    print(f"      ⚠️ Lỗi khi lấy status: {e} (bỏ qua URL này)")
+                    break
+                if progress_int >= 100:
+                    break
+
+
                 try:
                     scans_info = zap.ascan.scans() 
                     curr = next((s for s in scans_info if s.get('id') == str(scan_id)), None)

@@ -32,6 +32,7 @@ def start_merge():
 
         # Dữ liệu Wapiti đã được truyền vào hàm dưới dạng dictionary
         wapiti_data = wapiti_to_sarif_converter(wapiti_data)
+        print("✅ Chuyển đổi Wapiti sang định dạng SARIF thành công.")
 
         # Kiểm tra xem cả hai báo cáo có ít nhất một "run" không
         if not zap_data.get("runs") or not zap_data["runs"]:
@@ -110,78 +111,80 @@ def start_merge():
         seen = {}
         CWE_mapping = build_mapping_id_to_CWE(merged_run["tool"]["driver"]["rules"])
 
-        def add_results(results, tool_name):
-            for r in results:
-                uri = _get_uri_from_result(r)
-                rule_id = r.get("ruleId", "Unknown")
-                cwe = CWE_mapping.get(rule_id, rule_id)
-                corr_key = build_corr_key(uri, cwe)
+        # def add_results(results, tool_name):
+        #     for r in results:
+        #         uri = _get_uri_from_result(r)
+        #         rule_id = r.get("ruleId", "Unknown")
+        #         cwe = CWE_mapping.get(rule_id, rule_id)
+        #         corr_key = build_corr_key(uri, cwe)
 
-                if corr_key not in seen:
-                    base_loc = _first_location(r)
-                    if isinstance(base_loc.get("properties"), dict) and "source" in base_loc["properties"]:
-                        base_loc["properties"].pop("source", None)
+        #         if corr_key not in seen:
+        #             base_loc = _first_location(r)
+        #             if isinstance(base_loc.get("properties"), dict) and "source" in base_loc["properties"]:
+        #                 base_loc["properties"].pop("source", None)
 
-                    props = _ensure_props_maps(r)
-                    if tool_name not in props["sources"]:
-                        props["sources"].append(tool_name)
+        #             props = _ensure_props_maps(r)
+        #             if tool_name not in props["sources"]:
+        #                 props["sources"].append(tool_name)
 
-                    # gán map theo nguồn (tên đơn giản, không *_by_source)
-                    props["levels"][tool_name]    = r.get("level", "note")
-                    props["messages"][tool_name]  = (r.get("message") or {}).get("text", "")
-                    props["uris"][tool_name]      = _get_uri_from_result(r)
-                    props["startLines"][tool_name]= _get_startline_from_result(r)
-                    props["snippets"][tool_name]  = _get_snippet_from_result(r)
-                    atk = _get_attack_from_result(r)
-                    if atk is not None:
-                        props["attacks"][tool_name] = atk
+        #             # gán map theo nguồn
+        #             props["levels"][tool_name]    = r.get("level", "note")
+        #             props["messages"][tool_name]  = (r.get("message") or {}).get("text", "")
+        #             props["uris"][tool_name]      = _get_uri_from_result(r)
+        #             props["startLines"][tool_name]= _get_startline_from_result(r)
+        #             props["snippets"][tool_name]  = _get_snippet_from_result(r)
+        #             atk = _get_attack_from_result(r)
+        #             if atk is not None:
+        #                 props["attacks"][tool_name] = atk
 
-                    # Chỉ 1 location duy nhất (của tool hiện tại)
-                    _use_as_canonical_location(r, r)
+        #             # Chỉ 1 location duy nhất (của tool hiện tại)
+        #             _use_as_canonical_location(r, r)
 
-                    merged_run["results"].append(r)
-                    seen[corr_key] = r
+        #             merged_run["results"].append(r)
+        #             seen[corr_key] = r
 
-                else:
-                    tgt = seen[corr_key]
-                    props = _ensure_props_maps(tgt)
-                    if tool_name not in props["sources"]:
-                        props["sources"].append(tool_name)
+        #         else:
+        #             tgt = seen[corr_key]
+        #             props = _ensure_props_maps(tgt)
+        #             if tool_name not in props["sources"]:
+        #                 props["sources"].append(tool_name)
 
-                    # cập nhật maps theo nguồn
-                    props["levels"][tool_name]     = r.get("level", "note")
-                    props["messages"][tool_name]   = (r.get("message") or {}).get("text", "")
-                    props["uris"][tool_name]       = _get_uri_from_result(r)
-                    props["startLines"][tool_name] = _get_startline_from_result(r)
-                    props["snippets"][tool_name]   = _get_snippet_from_result(r)
-                    atk = _get_attack_from_result(r)
-                    if atk is not None:
-                        props["attacks"][tool_name] = atk
+        #             # cập nhật maps theo nguồn
+        #             props["levels"][tool_name]     = r.get("level", "note")
+        #             props["messages"][tool_name]   = (r.get("message") or {}).get("text", "")
+        #             props["uris"][tool_name]       = _get_uri_from_result(r)
+        #             props["startLines"][tool_name] = _get_startline_from_result(r)
+        #             props["snippets"][tool_name]   = _get_snippet_from_result(r)
+        #             atk = _get_attack_from_result(r)
+        #             if atk is not None:
+        #                 props["attacks"][tool_name] = atk
 
-                    # ruleId khác thì đẩy vào altRuleIds
-                    if r.get("ruleId") and r["ruleId"] != tgt.get("ruleId"):
-                        if r["ruleId"] not in props["altRuleIds"]:
-                            props["altRuleIds"].append(r["ruleId"])
+        #             # ruleId khác thì đẩy vào altRuleIds
+        #             if r.get("ruleId") and r["ruleId"] != tgt.get("ruleId"):
+        #                 if r["ruleId"] not in props["altRuleIds"]:
+        #                     props["altRuleIds"].append(r["ruleId"])
 
-                    # KHÔNG append thêm location (loại trừ trùng lặp lần 2)
-                    # Nếu tool mới là ZAP → dùng location của ZAP làm canonical
-                    if tool_name == "ZAP":
-                        _use_as_canonical_location(tgt, r)
-                        if r.get("webRequest"):
-                            tgt["webRequest"] = r["webRequest"]
-                        if r.get("webResponse"):
-                            tgt["webResponse"] = r["webResponse"]
-                    else:
-                        # Tool không phải ZAP: không đụng webRequest/Response, không đụng locations
-                        pass
+        #             # KHÔNG append thêm location (loại trừ trùng lặp lần 2)
+        #             # Nếu tool mới là ZAP → dùng location của ZAP làm canonical
+        #             if tool_name == "ZAP":
+        #                 _use_as_canonical_location(tgt, r)
+        #                 if r.get("webRequest"):
+        #                     tgt["webRequest"] = r["webRequest"]
+        #                 if r.get("webResponse"):
+        #                     tgt["webResponse"] = r["webResponse"]
+        #             else:
+        #                 # Tool không phải ZAP: không đụng webRequest/Response, không đụng locations
+        #                 pass
 
 
-        if zap_run.get("results"):
-            # merged_run["results"].extend(zap_run["results"])
-            add_results(zap_run["results"], "ZAP")
-        if wapiti_run.get("results"):
-            # merged_run["results"].extend(wapiti_run["results"])
-            add_results(wapiti_run["results"], "Wapiti")
+        # if zap_run.get("results"):
+        #     # merged_run["results"].extend(zap_run["results"])
+        #     add_results(zap_run["results"], "ZAP")
+        # if wapiti_run.get("results"):
+        #     # merged_run["results"].extend(wapiti_run["results"])
+        #     add_results(wapiti_run["results"], "Wapiti")
+        if zap_run.get("results") and wapiti_run.get("results"):
+            add_merge_result(zap_run["results"], wapiti_run["results"], CWE_mapping, merged_run)
 
 
         # 6. Ghi báo cáo SARIF đã hợp nhất vào tệp đầu ra
@@ -227,9 +230,12 @@ VULN_PATTERNS: Dict[str, List[str]] = {
 
     # Path traversal / LFI/RFI
     "PathTraversal": [
-        r"\.\./", r"\.\.\\", r"%2e%2e%2f", r"%2e%2e%5c",
-        r"/etc/passwd", r"c:\\windows", r"proc/self/environ", r"boot\.ini",
+        r"\.\./", r"\.\.\\", r"\.\.\/", r"\.\.\\\\", r"%2e%2e%2f", r"%2e%2e%5c",
+        r"%252e%252e%252f", r"%c0%ae%c0%ae%c0%af", r"%u002e%u002e%u002f",
+        r"/etc/passwd", r"/etc/shadow", r"/windows/win.ini", r"/boot.ini",
+        r"proc/self/environ", r"usr/bin/passwd",
         r"(?:file|ftp|php|jar|gopher|dict|tftp|ldap|ldaps):\/\/",
+        r"\x00", r"%00"
     ],
 
     # Command Injection (OS)
@@ -282,6 +288,7 @@ VULN_REGEX: Dict[str, List[re.Pattern]] = {
 
 def detect_payload_types(value: str) -> Set[str]:
     """Trả về tập các loại lỗ hổng mà value 'ngửi thấy'."""
+    print(f"   [Payload tìm thấy] {value}")
     if value is None:
         return set()
     s = value if isinstance(value, str) else str(value)
@@ -289,6 +296,7 @@ def detect_payload_types(value: str) -> Set[str]:
     for vtype, regs in VULN_REGEX.items():
         for rg in regs:
             if rg.search(s):
+                print(f"   [Payload] {s} | {vtype}")
                 types.add(vtype)
                 break
     return types
@@ -343,7 +351,7 @@ def build_corr_key(url: str, cwe: str) -> str:
 
 
 
-# --- helpers gọn để lấy trường từ result (giữ cái bạn đang dùng) ---
+# --- helpers gọn để lấy trường từ result ---
 def _first_location(result: dict) -> dict:
     locs = result.get("locations") or []
     return locs[0] if locs else {}
@@ -406,7 +414,96 @@ def _use_as_canonical_location(tgt_result: dict, src_result: dict):
     loc = _first_location(src_result)
     # làm sạch 'source' trong location.properties nếu có
     if isinstance(loc.get("properties"), dict) and "source" in loc["properties"]:
-        loc = dict(loc)  # copy nông
+        loc = dict(loc)
         loc["properties"] = dict(loc["properties"])
         loc["properties"].pop("source", None)
     tgt_result["locations"] = [loc]
+
+
+
+#--- helper để merge phần result ---
+def add_merge_result(zap_results, wapiti_results, CWE_mapping: dict, merged_run):
+    corr_key_map = {}
+    for tool_name, results in [("ZAP", zap_results), ("Wapiti", wapiti_results)]:
+        for r in results:
+            uri = _get_uri_from_result(r)
+            rule_id = r.get("ruleId", "Unknown")
+            cwe = CWE_mapping.get(rule_id, rule_id)
+            corr_key = build_corr_key(uri, cwe)
+            corr_key_map.setdefault(corr_key, []).append((tool_name, r))
+
+    for corr_key, items in corr_key_map.items():
+        if len(items) == 1:
+            tool_name, r = items[0]
+            props = _ensure_props_maps(r)
+            props["sources"].append(tool_name)
+            merged_run["results"].append(r)
+        else:
+            # Có nhiều hơn 1 item, kiểm tra xem có phải là trùng giữa 2 tool không
+            tools_involved = set(tool_name for tool_name, r in items)
+            
+            if len(tools_involved) == 2 and "ZAP" in tools_involved and "Wapiti" in tools_involved:
+                # Đúng là trùng giữa ZAP và Wapiti
+                # Lấy 1 item từ mỗi tool (item đầu tiên của mỗi tool)
+                zap_item = next((tool, r) for tool, r in items if tool == "ZAP")
+                wapiti_item = next((tool, r) for tool, r in items if tool == "Wapiti")
+                
+                tool1, r1 = zap_item
+                tool2, r2 = wapiti_item
+                
+                # print(f"Debug: Cross-tool duplicate found: {corr_key}")
+                # print(f"  {tool1} - {r1.get('ruleId', 'Unknown')}")
+                # print(f"  {tool2} - {r2.get('ruleId', 'Unknown')}")
+                
+                loc1 = _first_location(r1)
+                loc2 = _first_location(r2)
+                
+                result_entry = {
+                    "level": [f"{tool1} - {r1.get('level', 'note')}",
+                             f"{tool2} - {r2.get('level', 'note')}"],
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": [f"{tool1} - {loc1.get('physicalLocation', {}).get('artifactLocation', {}).get('uri', '')}",
+                                           f"{tool2} - {loc2.get('physicalLocation', {}).get('artifactLocation', {}).get('uri', '')}"],
+                                },
+                                "region": {
+                                    "startLine": [f"{tool1} - {loc1.get('physicalLocation', {}).get('region', {}).get('startLine', '')}",
+                                                 f"{tool2} - {loc2.get('physicalLocation', {}).get('region', {}).get('startLine', '')}"],
+                                    "snippet": {
+                                        "text": [f"{tool1} - {loc1.get('physicalLocation', {}).get('region', {}).get('snippet', {}).get('text', '')}",
+                                                f"{tool2} - {loc2.get('physicalLocation', {}).get('region', {}).get('snippet', {}).get('text', '')}"],
+                                    }
+                                }
+                            },
+                            "properties": {
+                                "attack": [f"{tool1} - {loc1.get('properties', {}).get('attack', '')}",
+                                          f"{tool2} - {loc2.get('properties', {}).get('attack', '')}"],
+                                "curl_command": f"{tool2} - {loc2.get('properties', {}).get('curl_command', '')}",
+                            }
+                        }
+                    ],
+                    "message": {
+                        "text": [f"{tool1} - {r1.get('message', {}).get('text', '')}",
+                                f"{tool2} - {r2.get('message', {}).get('text', '')}"],
+                    },
+                    "ruleId": [f"{tool1} - {r1.get('ruleId', '')}",
+                              f"{tool2} - {r2.get('ruleId', '')}"],
+                    "webRequest": [f"{tool1} - {r1.get('webRequest', '')}",
+                                   f"{tool2} - {r2.get('webRequest', '')}"],
+                    "webResponse": [f"{tool1} - {r1.get('webResponse', '')}",
+                                    f"{tool2} - {r2.get('webResponse', '')}"]
+                }
+                merged_run["results"].append(result_entry)
+            else:
+                # Trùng lặp trong cùng 1 tool hoặc có >2 tools, thêm từng cái riêng biệt
+                # print(f"Debug: Same-tool duplicates or unexpected case: {corr_key}")
+                for tool_name, r in items:
+                    # print(f"  {tool_name} - {r.get('ruleId', 'Unknown')}")
+                    props = _ensure_props_maps(r)
+                    props["sources"].append(tool_name)
+                    merged_run["results"].append(r)
+
+            
+            

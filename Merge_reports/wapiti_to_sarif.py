@@ -308,34 +308,33 @@ def wapiti_to_sarif_converter(wapiti_json_data: dict) -> dict:
                 web_request["body"] = {"text": req_body_text.strip()}
             else:
                 web_request["body"] = {}
-
-
+        # đang lỗi
         web_response = {
-            "statusCode": finding.get("detail", {}).get("response", {}).get("status_code", 0),
+            "statusCode": ((finding.get("detail", {}) or {}).get("response") or {}).get("status_code", 0),
             "reasonPhrase": "",
             "protocol": "HTTP",
             "version": "1.1",
             "headers": {}
         }
-
-        raw_response_body = finding.get("detail", {}).get("response", {}).get("body", "")
+        
+        raw_response_body = ((finding.get("detail", {}) or {}).get("response") or {}).get("body", "")
         if raw_response_body:
             decoded_body = raw_response_body.replace("&#x2f;", "/").replace("&#x3a;", ":").replace("&#xa;", "\n").replace("&#x3b;", ";").replace("&#x3d;", "=")
             web_response["body"] = {"text": decoded_body}
         else:
             web_response["body"] = {}
         
-        response_headers_list = finding.get("detail", {}).get("response", {}).get("headers", [])
+        response_headers_list = ((finding.get("detail", {}) or {}).get("response") or {}).get("headers", [])
         resp_headers_dict = {}
         for header_pair in response_headers_list:
             if isinstance(header_pair, list) and len(header_pair) == 2:
                 resp_headers_dict[header_pair[0].strip()] = header_pair[1].strip()
         web_response["headers"] = resp_headers_dict
-
+        
         # add
         url_artifact = find_artifact_location_uri(finding)
         payload = find_payload(url_artifact)
-
+        
         result_entry = {
             "level": sarif_level,
             "locations": [
@@ -354,7 +353,8 @@ def wapiti_to_sarif_converter(wapiti_json_data: dict) -> dict:
                         }
                     },
                     "properties": {
-                        "attack": payload
+                        "attack": payload,
+                        "curl_command": finding.get("curl_command", "")
                     }
                     
                 }
@@ -365,28 +365,6 @@ def wapiti_to_sarif_converter(wapiti_json_data: dict) -> dict:
             "ruleId": found_rule_id
         }
         
-        # result_entry_relationships = []
-        
-        # wstg_list_for_result = []
-        # if "wstg" in finding and finding["wstg"]:
-        #     if isinstance(finding["wstg"], list):
-        #         wstg_list_for_result = finding["wstg"]
-        #     elif isinstance(finding["wstg"], str):
-        #         wstg_list_for_result = [finding["wstg"]]
-            
-        #     for wstg_id_item in wstg_list_for_result:
-        #         result_entry_relationships.append({
-        #             "target": {
-        #                 "toolComponent": {"name": "OWASP WSTG"},
-        #                 "id": wstg_id_item
-        #             },
-        #             "kind": "relevant"
-        #         })
-        
-        # if result_entry_relationships:
-        #     result_entry["relationships"] = result_entry_relationships
-
-
         if web_request:
             result_entry["webRequest"] = web_request
         if web_response["statusCode"] or web_response["headers"] or web_response["body"]:
@@ -408,26 +386,6 @@ def find_artifact_location_uri(finding):
         return f"{url_dest}?{req_body}"
     return url_dest
 
-
-# def find_payload(finding):
-#     curl = finding.get("curl_command", "")
-#     # m = re.search(r'-d\s+"([^"]+)"', curl)
-#     # body = m.group(1) if m else ""
-#     # pairs = body.split('&')
-#     pairs = curl.split('&')
-#     pattern = re.compile(r'(?i)(%3c|%3e|<|>|script|onerror|onload)')
-#     payload_raw = None
-#     for pair in pairs:
-#         if "=" in pair:
-#             key, val = pair.split("=", 1)
-#         else:
-#             key, val = pair, ""
-#         if pattern.search(val):
-#             payload_raw = val
-#             break
-#     return unquote_plus(payload_raw)
-#     # return payload_raw
-
 def find_payload(url_artifact):
     pairs = url_artifact.split("&")
     pattern = re.compile(r'(?i)(%3c|%3e|<|>|script|onerror|onload)')
@@ -440,10 +398,14 @@ def find_payload(url_artifact):
         if pattern.search(val):
             payload_raw = val
             break
+    if payload_raw is None:
+        return ""
     return unquote_plus(payload_raw)
 
 def find_start_line(payload, finding):
-    body = finding.get("detail", {}).get("response", {}).get("body", "")
+    body = ((finding.get("detail", {}) or {}).get("response") or {}).get("body", "")
+    if body == "":
+        return None
     lines = body.split('\n')
     for i, line in enumerate(lines):
         if payload in line:
