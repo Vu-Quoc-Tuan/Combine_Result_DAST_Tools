@@ -65,7 +65,7 @@ def start_merge():
         }
 
 
-        # 4. Hợp nhất runs.taxonomies: ZAP trước, Wapiti sau (và xử lý trùng lặp)
+        # 3. Hợp nhất runs.taxonomies: ZAP trước, Wapiti sau (và xử lý trùng lặp)
         unique_taxonomies = {}
 
         if zap_run.get("taxonomies"):
@@ -88,7 +88,7 @@ def start_merge():
             if tax.get('taxa'):
                 tax['taxa'].sort(key=lambda x: x.get('id', ''))
 
-        # 5. Hợp nhất runs.tool.driver (rules): ZAP trước, Wapiti sau
+        # 4. Hợp nhất runs.tool.driver (rules): ZAP trước, Wapiti sau
         if zap_run.get("tool", {}).get("driver", {}).get("rules"):
             merged_run["tool"]["driver"]["rules"].extend(zap_run["tool"]["driver"]["rules"])
         
@@ -107,85 +107,12 @@ def start_merge():
         merged_sarif_data["runs"].append(merged_run)
 
 
-        # 3. Hợp nhất runs.results: ZAP trước, Wapiti sau
+        # 5. Hợp nhất runs.results: ZAP trước, Wapiti sau
         seen = {}
         CWE_mapping = build_mapping_id_to_CWE(merged_run["tool"]["driver"]["rules"])
 
-        # def add_results(results, tool_name):
-        #     for r in results:
-        #         uri = _get_uri_from_result(r)
-        #         rule_id = r.get("ruleId", "Unknown")
-        #         cwe = CWE_mapping.get(rule_id, rule_id)
-        #         corr_key = build_corr_key(uri, cwe)
-
-        #         if corr_key not in seen:
-        #             base_loc = _first_location(r)
-        #             if isinstance(base_loc.get("properties"), dict) and "source" in base_loc["properties"]:
-        #                 base_loc["properties"].pop("source", None)
-
-        #             props = _ensure_props_maps(r)
-        #             if tool_name not in props["sources"]:
-        #                 props["sources"].append(tool_name)
-
-        #             # gán map theo nguồn
-        #             props["levels"][tool_name]    = r.get("level", "note")
-        #             props["messages"][tool_name]  = (r.get("message") or {}).get("text", "")
-        #             props["uris"][tool_name]      = _get_uri_from_result(r)
-        #             props["startLines"][tool_name]= _get_startline_from_result(r)
-        #             props["snippets"][tool_name]  = _get_snippet_from_result(r)
-        #             atk = _get_attack_from_result(r)
-        #             if atk is not None:
-        #                 props["attacks"][tool_name] = atk
-
-        #             # Chỉ 1 location duy nhất (của tool hiện tại)
-        #             _use_as_canonical_location(r, r)
-
-        #             merged_run["results"].append(r)
-        #             seen[corr_key] = r
-
-        #         else:
-        #             tgt = seen[corr_key]
-        #             props = _ensure_props_maps(tgt)
-        #             if tool_name not in props["sources"]:
-        #                 props["sources"].append(tool_name)
-
-        #             # cập nhật maps theo nguồn
-        #             props["levels"][tool_name]     = r.get("level", "note")
-        #             props["messages"][tool_name]   = (r.get("message") or {}).get("text", "")
-        #             props["uris"][tool_name]       = _get_uri_from_result(r)
-        #             props["startLines"][tool_name] = _get_startline_from_result(r)
-        #             props["snippets"][tool_name]   = _get_snippet_from_result(r)
-        #             atk = _get_attack_from_result(r)
-        #             if atk is not None:
-        #                 props["attacks"][tool_name] = atk
-
-        #             # ruleId khác thì đẩy vào altRuleIds
-        #             if r.get("ruleId") and r["ruleId"] != tgt.get("ruleId"):
-        #                 if r["ruleId"] not in props["altRuleIds"]:
-        #                     props["altRuleIds"].append(r["ruleId"])
-
-        #             # KHÔNG append thêm location (loại trừ trùng lặp lần 2)
-        #             # Nếu tool mới là ZAP → dùng location của ZAP làm canonical
-        #             if tool_name == "ZAP":
-        #                 _use_as_canonical_location(tgt, r)
-        #                 if r.get("webRequest"):
-        #                     tgt["webRequest"] = r["webRequest"]
-        #                 if r.get("webResponse"):
-        #                     tgt["webResponse"] = r["webResponse"]
-        #             else:
-        #                 # Tool không phải ZAP: không đụng webRequest/Response, không đụng locations
-        #                 pass
-
-
-        # if zap_run.get("results"):
-        #     # merged_run["results"].extend(zap_run["results"])
-        #     add_results(zap_run["results"], "ZAP")
-        # if wapiti_run.get("results"):
-        #     # merged_run["results"].extend(wapiti_run["results"])
-        #     add_results(wapiti_run["results"], "Wapiti")
-        if zap_run.get("results") and wapiti_run.get("results"):
+        if zap_run.get("results") or wapiti_run.get("results"):
             add_merge_result(zap_run["results"], wapiti_run["results"], CWE_mapping, merged_run)
-
 
         # 6. Ghi báo cáo SARIF đã hợp nhất vào tệp đầu ra
         with open(output_sarif_filepath, 'w', encoding='utf-8') as f:
@@ -345,6 +272,10 @@ def build_corr_key(url: str, cwe: str) -> str:
     url_norm = normalize_url(url)
     param = get_param_from_url(url)
     cwe = f"CWE-{cwe}"
+    if param[0] == "None":
+        param = url_norm.split("/")[-1]
+        return f"{url_norm}::{cwe}::{param}"
+    
     return f"{url_norm}::{cwe}::{param[0]}"
 
 

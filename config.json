@@ -10,7 +10,7 @@
   },
   "wapiti": {
     "path": "wapiti",
-    "report_file": "Report/Raw/Wapiti_report/wapiti_rp.json"
+    "report_file": "Report/Raw/Wapiti_report/wapiti_sarif.json"
   },
   "merge": {
     "output_file": "Report/Combine_report/merged_sarif.json"

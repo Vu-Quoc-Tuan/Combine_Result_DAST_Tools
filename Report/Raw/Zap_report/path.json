@@ -1,0 +1,1110 @@
+{
+   "runs": [
+      {
+         "results": [ 
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00629?BenchmarkTest00629=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00629?BenchmarkTest00629=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00629.html?BenchmarkTest00629=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:09:48 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00783?BenchmarkTest00783=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00783?BenchmarkTest00783=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00783.html?BenchmarkTest00783=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2417",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:09:56 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01496?BenchmarkTest01496=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01496?BenchmarkTest01496=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01496.html?BenchmarkTest01496=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:11:25 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01645?BenchmarkTest01645=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01645?BenchmarkTest01645=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01645.html?BenchmarkTest01645=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:11:43 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02113?BenchmarkTest02113=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02113?BenchmarkTest02113=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02113.html?BenchmarkTest02113=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:12:49 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02560?BenchmarkTest02560=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02560?BenchmarkTest02560=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02560.html?BenchmarkTest02560=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2417",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:13:36 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02561?BenchmarkTest02561=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02561?BenchmarkTest02561=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02561.html?BenchmarkTest02561=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:13:37 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02562?BenchmarkTest02562=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02562?BenchmarkTest02562=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd\u0026password=ZAP\u0026username=ZAP",
+                   "method": "GET",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-03\/BenchmarkTest02562.html?BenchmarkTest02562=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:13:43 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00360"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00360",
+                   "method": "POST",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "content-length" : "119",
+                       "content-type" : "application\/x-www-form-urlencoded",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00360.html?BenchmarkTest00360=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       "binary": "QmVuY2htYXJrVGVzdDAwMzYwPS4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGZXRjJTJGcGFzc3dkJmZvbz1iYXI="
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2417",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:06:01 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00455"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00455",
+                   "method": "POST",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "content-length" : "119",
+                       "content-type" : "application\/x-www-form-urlencoded",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00455.html?BenchmarkTest00455=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       "binary": "QmVuY2htYXJrVGVzdDAwNDU1PS4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGZXRjJTJGcGFzc3dkJmZvbz1iYXI="
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:06:01 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00456"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00456",
+                   "method": "POST",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "content-length" : "111",
+                       "content-type" : "application\/x-www-form-urlencoded",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-00\/BenchmarkTest00456.html?BenchmarkTest00456=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       "binary": "QmVuY2htYXJrVGVzdDAwNDU2PS4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGZXRjJTJGcGFzc3dk"
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:06:05 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01500"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01500",
+                   "method": "POST",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "content-length" : "111",
+                       "content-type" : "application\/x-www-form-urlencoded",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01500.html?BenchmarkTest01500=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       "binary": "QmVuY2htYXJrVGVzdDAxNTAwPS4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGZXRjJTJGcGFzc3dk"
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2418",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:06:56 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01572"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01572",
+                   "method": "POST",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "content-length" : "152",
+                       "content-type" : "application\/x-www-form-urlencoded",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-01\/BenchmarkTest01572.html?BenchmarkTest01572=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       "binary": "ZW1haWw9emFwcm94eSU0MGV4YW1wbGUuY29tJnBhc3N3b3JkPVpBUCZCZW5jaG1hcmtUZXN0MDE1NzI9Li4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkZldGMlMkZwYXNzd2Q="
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2417",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:06:59 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02465"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02465",
+                   "method": "POST",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "content-length" : "119",
+                       "content-type" : "application\/x-www-form-urlencoded",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02465.html?BenchmarkTest02465=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       "binary": "QmVuY2htYXJrVGVzdDAyNDY1PS4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGZXRjJTJGcGFzc3dkJmZvbz1iYXI="
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2417",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:08:15 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            },
+            {
+               "level": "error",
+               "locations": [
+                  {
+                     "physicalLocation": {
+                        "artifactLocation": {
+                           "uri": "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02466"
+                        },
+                        
+                        "region": {
+                           "startLine": 1,
+                           
+                           "properties" : { 
+                               "startLineFailure" : "Resolved invalid start line: 0 - used fallback value instead."
+                            }, 
+                           "snippet": {
+                               "text": "root:x:0:0"
+                           }
+                        }
+                     },
+                     "properties": {
+                         "attack": "..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/..\/etc\/passwd"
+                     }
+                  }
+               ],
+               "message": {
+                  "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+               },
+               "ruleId": "6",
+               "webRequest": {
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "target": "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02466",
+                   "method": "POST",
+                   "headers": {
+                       "cache-control" : "no-cache",
+                       "content-length" : "111",
+                       "content-type" : "application\/x-www-form-urlencoded",
+                       "host" : "localhost:8444",
+                       "pragma" : "no-cache",
+                       "referer" : "https:\/\/localhost:8444\/benchmark\/pathtraver-02\/BenchmarkTest02466.html?BenchmarkTest02466=SafeText",
+                       "user-agent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/131.0.0.0 Safari\/537.36",
+                       "x-zap-scan-id" : "6"
+                   },
+                   "body": {
+                       "binary": "QmVuY2htYXJrVGVzdDAyNDY2PS4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGLi4lMkYuLiUyRi4uJTJGZXRjJTJGcGFzc3dk"
+                   }
+               },
+               "webResponse": {
+                   "statusCode": 200,
+                   "reasonPhrase": "",
+                   "protocol": "HTTP",
+                   "version": "1.1",
+                   "headers": {
+                       "Cache-Control" : "no-cache, no-store, must-revalidate",
+                       "Content-Length" : "2417",
+                       "Content-Security-Policy" : "frame-ancestors 'self'; form-action 'self'; default-src 'unsafe-inline' 'unsafe-eval' 'self'; style-src 'unsafe-inline' 'self'; style-src-elem 'self' fonts.googleapis.com; font-src 'self' fonts.gstatic.com",
+                       "Content-Type" : "text\/html;charset=UTF-8",
+                       "Date" : "Tue, 02 Sep 2025 04:08:16 GMT",
+                       "Strict-Transport-Security" : "max-age=31536000;includeSubDomains",
+                       "X-Content-Type-Options" : "nosniff",
+                       "X-Frame-Options" : "DENY"
+                   },
+                   "body": {
+                       "text": "The beginning of file: '\u0026#x2f;owasp\u0026#x2f;BenchmarkJava\u0026#x2f;target\u0026#x2f;tomcat9x\u0026#x2f;testfiles\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;..\u0026#x2f;etc\u0026#x2f;passwd' is:\n\nroot\u0026#x3a;x\u0026#x3a;0\u0026#x3a;0\u0026#x3a;root\u0026#x3a;\u0026#x2f;root\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;daemon\u0026#x3a;x\u0026#x3a;1\u0026#x3a;1\u0026#x3a;daemon\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;bin\u0026#x3a;x\u0026#x3a;2\u0026#x3a;2\u0026#x3a;bin\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sys\u0026#x3a;x\u0026#x3a;3\u0026#x3a;3\u0026#x3a;sys\u0026#x3a;\u0026#x2f;dev\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;sync\u0026#x3a;x\u0026#x3a;4\u0026#x3a;65534\u0026#x3a;sync\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;bin\u0026#x2f;sync\u0026#xa;games\u0026#x3a;x\u0026#x3a;5\u0026#x3a;60\u0026#x3a;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;games\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;man\u0026#x3a;x\u0026#x3a;6\u0026#x3a;12\u0026#x3a;man\u0026#x3a;\u0026#x2f;var\u0026#x2f;cache\u0026#x2f;man\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;lp\u0026#x3a;x\u0026#x3a;7\u0026#x3a;7\u0026#x3a;lp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;lpd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;mail\u0026#x3a;x\u0026#x3a;8\u0026#x3a;8\u0026#x3a;mail\u0026#x3a;\u0026#x2f;var\u0026#x2f;mail\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;news\u0026#x3a;x\u0026#x3a;9\u0026#x3a;9\u0026#x3a;news\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;news\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;uucp\u0026#x3a;x\u0026#x3a;10\u0026#x3a;10\u0026#x3a;uucp\u0026#x3a;\u0026#x2f;var\u0026#x2f;spool\u0026#x2f;uucp\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;proxy\u0026#x3a;x\u0026#x3a;13\u0026#x3a;13\u0026#x3a;proxy\u0026#x3a;\u0026#x2f;bin\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;www-data\u0026#x3a;x\u0026#x3a;33\u0026#x3a;33\u0026#x3a;www-data\u0026#x3a;\u0026#x2f;var\u0026#x2f;www\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;backup\u0026#x3a;x\u0026#x3a;34\u0026#x3a;34\u0026#x3a;backup\u0026#x3a;\u0026#x2f;var\u0026#x2f;backups\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;list\u0026#x3a;x\u0026#x3a;38\u0026#x3a;38\u0026#x3a;Mailing List Manager\u0026#x3a;\u0026#x2f;var\u0026#x2f;list\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;irc\u0026#x3a;x\u0026#x3a;39\u0026#x3a;39\u0026#x3a;ircd\u0026#x3a;\u0026#x2f;run\u0026#x2f;ircd\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;_apt\u0026#x3a;x\u0026#x3a;42\u0026#x3a;65534\u0026#x3a;\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;nobody\u0026#x3a;x\u0026#x3a;65534\u0026#x3a;65534\u0026#x3a;nobody\u0026#x3a;\u0026#x2f;nonexistent\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;ubuntu\u0026#x3a;x\u0026#x3a;1000\u0026#x3a;1000\u0026#x3a;Ubuntu\u0026#x3a;\u0026#x2f;home\u0026#x2f;ubuntu\u0026#x3a;\u0026#x2f;bin\u0026#x2f;bash\u0026#xa;systemd-network\u0026#x3a;x\u0026#x3a;998\u0026#x3a;998\u0026#x3a;systemd Network Management\u0026#x3a;\u0026#x2f;\u0026#x3a;\u0026#x2f;usr\u0026#x2f;sbin\u0026#x2f;nologin\u0026#xa;systemd-timesync\u0026#x3a;x\u0026#x3a;997\u0026#x3a;997\u0026#x3a;systemd Time\n"
+                   },
+                   "noResponseReceived": false
+               }
+            }
+         ],
+         "taxonomies": [
+            {
+               "downloadUri": "https:\/\/cwe.mitre.org\/data\/xml\/cwec_v4.8.xml.zip",
+               "guid":  "b000a760-3e52-3565-a35c-f61369da53b7",
+               "informationUri": "https:\/\/cwe.mitre.org\/data\/published\/cwe_v4.8.pdf",
+               "isComprehensive": true,
+               "language": "en",
+               "minimumRequiredLocalizedDataSemanticVersion": "4.8",
+               "name":  "CWE",
+               "organization": "MITRE",
+               "releaseDateUtc": "2022-06-28",
+               "shortDescription": {
+                  "text": "The MITRE Common Weakness Enumeration"
+               },
+               "taxa": [
+                  {
+                     "guid": "c64a4b7c-47d0-3388-8fac-43cc5f8cb061",
+                     "helpUri": "https:\/\/cwe.mitre.org\/data\/definitions\/22.html",
+                     "id": "22"
+                  }
+               ],
+               "version": "4.8"
+            }
+         ],
+         "tool": {
+            "driver": {
+               "guid": "3716e880-7ee2-34d2-9cf1-0f88c0dc613a",
+               "informationUri": "https:\/\/www.zaproxy.org\/",
+               "name": "ZAP",
+               "rules": [ 
+                  {
+                     "id": "6",
+                     "defaultConfiguration": {
+                        "level": "error"
+                     },
+                     "fullDescription": {
+                        "text": "The Path Traversal attack technique allows an attacker access to files, directories, and commands that potentially reside outside the web document root directory. An attacker may manipulate a URL in such a way that the web site will execute or reveal the contents of arbitrary files anywhere on the web server. Any device that exposes an HTTP-based interface is potentially vulnerable to Path Traversal.\n\nMost web sites restrict user access to a specific portion of the file-system, typically called the \"web document root\" or \"CGI root\" directory. These directories contain the files intended for user access and the executable necessary to drive web application functionality. To access files or execute commands anywhere on the file-system, Path Traversal attacks will utilize the ability of special-characters sequences.\n\nThe most basic Path Traversal attack uses the \"..\/\" special-character sequence to alter the resource location requested in the URL. Although most popular web servers will prevent this technique from escaping the web document root, alternate encodings of the \"..\/\" sequence may help bypass the security filters. These method variations include valid and invalid Unicode-encoding (\"..%u2216\" or \"..%c0%af\") of the forward slash character, backslash characters (\"..\\\") on Windows-based servers, URL encoded characters \"%2e%2e%2f\"), and double URL encoding (\"..%255c\") of the backslash character.\n\nEven if the web server properly restricts Path Traversal attempts in the URL path, a web application itself may still be vulnerable due to improper handling of user-supplied input. This is a common problem of web applications that use template mechanisms or load static text from files. In variations of the attack, the original URL parameter value is substituted with the file name of one of the web application's dynamic scripts. Consequently, the results can reveal source code because the file is interpreted as text instead of an executable script. These techniques often employ additional special characters such as the dot (\".\") to reveal the listing of the current working directory, or \"%00\" NULL characters in order to bypass rudimentary file extension checks."
+                     },
+                     "name": "Path Traversal",
+                     "properties": {
+                            "references": [
+                                "https:\/\/owasp.org\/www-community\/attacks\/Path_Traversal",
+                                "https:\/\/cwe.mitre.org\/data\/definitions\/22.html"
+                            ],
+                            "solution": {
+                                "text": "Assume all input is malicious. Use an \"accept known good\" input validation strategy, i.e., use an allow list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. Do not rely exclusively on looking for malicious or malformed inputs (i.e., do not rely on a deny list). However, deny lists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright.\n\nWhen performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, \"boat\" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if you are expecting colors such as \"red\" or \"blue.\"\n\nFor filenames, use stringent allow lists that limit the character set to be used. If feasible, only allow a single \".\" character in the filename to avoid weaknesses, and exclude directory separators such as \"\/\". Use an allow list of allowable file extensions.\n\nWarning: if you attempt to cleanse your data, then do so that the end result is not in the form that can be dangerous. A sanitizing mechanism can remove characters such as '.' and ';' which may be required for some exploits. An attacker can try to fool the sanitizing mechanism into \"cleaning\" data into a dangerous form. Suppose the attacker injects a '.' inside a filename (e.g. \"sensi.tiveFile\") and the sanitizing mechanism removes the character resulting in the valid filename, \"sensitiveFile\". If the input data are now assumed to be safe, then the file may be compromised. \n\nInputs should be decoded and canonicalized to the application's current internal representation before being validated. Make sure that your application does not decode the same input twice. Such errors could be used to bypass allow list schemes by introducing dangerous inputs after they have been checked.\n\nUse a built-in path canonicalization function (such as realpath() in C) that produces the canonical version of the pathname, which effectively removes \"..\" sequences and symbolic links.\n\nRun your code using the lowest privileges that are required to accomplish the necessary tasks. If possible, create isolated accounts with limited privileges that are only used for a single task. That way, a successful attack will not immediately give the attacker access to the rest of the software or its environment. For example, database applications rarely need to run as the database administrator, especially in day-to-day operations.\n\nWhen the set of acceptable objects, such as filenames or URLs, is limited or known, create a mapping from a set of fixed input values (such as numeric IDs) to the actual filenames or URLs, and reject all other inputs.\n\nRun your code in a \"jail\" or similar sandbox environment that enforces strict boundaries between the process and the operating system. This may effectively restrict which files can be accessed in a particular directory or which commands can be executed by your software.\n\nOS-level examples include the Unix chroot jail, AppArmor, and SELinux. In general, managed code may provide some protection. For example, java.io.FilePermission in the Java SecurityManager allows you to specify restrictions on file operations.\n\nThis may not be a feasible solution, and it only limits the impact to the operating system; the rest of your application may still be subject to compromise.\n"
+                            },
+                            "confidence": "medium"
+                     },
+                     "relationships": [ 
+                        {
+                           "kinds": [
+                              "superset"
+                           ],
+                           "target": {
+                              "guid":"c64a4b7c-47d0-3388-8fac-43cc5f8cb061",
+                              "id": "22",
+                              "toolComponent": {
+                                 "guid": "b000a760-3e52-3565-a35c-f61369da53b7",
+                                 "name": "CWE"
+                              }
+                           }
+                        }
+                        
+                     ],
+                     "shortDescription": {
+                        "text": "Path Traversal"
+                     }
+                  }
+                  
+               ],
+               "semanticVersion": "2.16.1",
+               "supportedTaxonomies": [ 
+                  {
+                     "guid": "b000a760-3e52-3565-a35c-f61369da53b7",
+                     "name": "CWE"
+                  }
+               ],
+               "version": "2.16.1"
+            }
+         }
+      }
+   ],
+   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+   "version": "2.1.0"
+}

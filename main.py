@@ -34,9 +34,9 @@ def main_workflow():
         start_scans(args.target_url)
         
         print("\nChờ 5 giây trước khi chuyển sang giai đoạn hợp nhất...\n")
-        time.sleep(5)
+        # time.sleep(5)
         
-        # Giai đoạn 2: Hợp nhất báo cáo
+        # # Giai đoạn 2: Hợp nhất báo cáo
         start_merge()
     
     print("\n==========================================")

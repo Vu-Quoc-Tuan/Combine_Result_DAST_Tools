@@ -86,6 +86,16 @@ def run_zap_scan(target_url: str):
     try:
         version = zap.core.version
         print(f"✅ Kết nối ZAP thành công. Version: {version}")
+
+
+        # Tắt toàn bộ Passive Scanning
+        try:
+            zap.pscan.set_enabled(False)  # Chỉ cần dòng này
+            print("✅ Đã tắt Passive Scanning")
+        except Exception as e:
+            print(f"⚠️ Không thể tắt Passive Scanning: {e}")
+
+
     except Exception as e:
         print(f"❌ Không thể kết nối ZAP API: {e}")
         return False
@@ -100,6 +110,9 @@ def run_zap_scan(target_url: str):
 
     print(f'>>> Bắt đầu Spider scan: {target_url}')
     try:
+        zap.spider.set_option_max_depth(5)  # Tăng độ sâu
+        zap.spider.set_option_thread_count(10)  # Tăng số thread
+        
         scanid = zap.spider.scan(target_url)
         time.sleep(2)
         
@@ -117,39 +130,168 @@ def run_zap_scan(target_url: str):
         print(f"❌ Spider scan failed: {e}")
         return False
 
-    print('>>> Bắt đầu Ajax Spider...')
-    try:
-        zap.ajaxSpider.scan(target_url)
-        timeout = time.time() + 60*2 
+    # print('>>> Bắt đầu Ajax Spider...')
+    # try:
+    #     zap.ajaxSpider.scan(target_url)
+    #     timeout = time.time() + 60*2 
         
-        while True:
-            st = zap.ajaxSpider.status 
-            if st == 'stopped':
-                break
-            if time.time() > timeout:
-                print("⚠️ Ajax Spider timeout")
-                zap.ajaxSpider.stop()
-                break
-            print(f'   Ajax Spider status: {st}')
-            time.sleep(5)
-        print('✅ Ajax Spider completed')
+    #     while True:
+    #         st = zap.ajaxSpider.status 
+    #         if st == 'stopped':
+    #             break
+    #         if time.time() > timeout:
+    #             print("⚠️ Ajax Spider timeout")
+    #             zap.ajaxSpider.stop()
+    #             break
+    #         print(f'   Ajax Spider status: {st}')
+    #         time.sleep(5)
+    #     print('✅ Ajax Spider completed')
         
-    except Exception as e:
-        print(f"❌ Ajax Spider failed: {e}")
+    # except Exception as e:
+    #     print(f"❌ Ajax Spider failed: {e}")
 
-    print('>>> Chờ Passive scan hoàn thành...')
-    try:
-        while int(zap.pscan.records_to_scan) > 0:
-            remaining = zap.pscan.records_to_scan
-            print(f'   Passive scan remaining: {remaining}')
-            time.sleep(3)
-        print('✅ Passive scan completed')
-    except Exception as e:
-        print(f"❌ Passive scan check failed: {e}")
+    # print('>>> Chờ Passive scan hoàn thành...')
+    # try:
+    #     while int(zap.pscan.records_to_scan) > 0:
+    #         remaining = zap.pscan.records_to_scan
+    #         print(f'   Passive scan remaining: {remaining}')
+    #         time.sleep(3)
+    #     print('✅ Passive scan completed')
+    # except Exception as e:
+    #     print(f"❌ Passive scan check failed: {e}")
+
+
+
+
+
+
+
+    #     # ✅ THÊM: Debug kiểm tra POST endpoints
+    # print(">>> Debug: Kiểm tra POST endpoints đã tìm thấy...")
+    # try:
+    #     # Lấy tất cả URLs
+    #     all_urls = zap.core.urls()
+    #     print(f"   📊 Tổng URLs tìm thấy: {len(all_urls)}")
+        
+    #     # Lấy tất cả messages/requests từ history
+    #     history = zap.core.messages()
+    #     print(f"   📊 Tổng requests trong history: {len(history)}")
+        
+    #     # Phân tích theo method
+    #     get_count = 0
+    #     post_count = 0
+    #     other_count = 0
+    #     post_urls = []
+        
+    #     for msg in history:
+    #         try:
+    #             request_header = msg.get('requestHeader', '')
+                
+    #             if request_header.startswith('GET '):
+    #                 get_count += 1
+    #             elif request_header.startswith('POST '):
+    #                 post_count += 1
+    #                 # Lấy URL từ POST request
+    #                 lines = request_header.split('\n')
+    #                 if lines:
+    #                     first_line = lines[0]  # "POST /path HTTP/1.1"
+    #                     parts = first_line.split(' ')
+    #                     if len(parts) >= 2:
+    #                         path = parts[1]
+    #                         # Tạo full URL
+    #                         parsed = urlparse(target_url)
+    #                         full_url = f"{parsed.scheme}://{parsed.netloc}{path}"
+    #                         post_urls.append(full_url)
+    #             else:
+    #                 other_count += 1
+                    
+    #         except Exception as e:
+    #             print(f"      ⚠️ Error parsing message: {e}")
+        
+    #     print(f"   📊 Request methods breakdown:")
+    #     print(f"      GET: {get_count}")
+    #     print(f"      POST: {post_count}")
+    #     print(f"      Other: {other_count}")
+        
+    #     # Hiển thị POST URLs
+    #     if post_urls:
+    #         print(f"   🎯 POST URLs tìm thấy ({len(post_urls)}):")
+    #         for i, url in enumerate(post_urls[:10], 1):  # Hiển thị 10 đầu
+    #             print(f"      [{i}] {url}")
+    #         if len(post_urls) > 10:
+    #             print(f"      ... và {len(post_urls) - 10} URLs khác")
+    #     else:
+    #         print(f"   ❌ KHÔNG tìm thấy POST URLs nào!")
+    #         print(f"   💡 Đây có thể là lý do ZAP không detect Path Traversal")
+        
+    #     # Kiểm tra xem có PathTraver URLs không
+    #     pathtraver_urls = [url for url in all_urls if 'pathtraver' in url.lower()]
+    #     pathtraver_post_urls = [url for url in post_urls if 'pathtraver' in url.lower()]
+        
+    #     print(f"   🎯 PathTraver URLs (tất cả): {len(pathtraver_urls)}")
+    #     print(f"   🎯 PathTraver POST URLs: {len(pathtraver_post_urls)}")
+        
+    #     if pathtraver_urls:
+    #         print(f"   📋 Sample PathTraver URLs:")
+    #         for i, url in enumerate(pathtraver_urls[:5], 1):
+    #             print(f"      [{i}] {url}")
+        
+    #     # ✅ THÊM: Debug Sites Tree (SỬA INDENT)
+    #     print("   >>> Debug: Kiểm tra Sites Tree...")
+    #     sites = zap.core.sites
+    #     print(f"      📊 Sites trong tree: {sites}")
+        
+    #     # Kiểm tra có forms nào không
+    #     sample_urls = [url for url in all_urls if 'pathtraver' in url.lower()][:3]
+    #     for sample_url in sample_urls:
+    #         try:
+    #             # Thử access page để xem có forms không
+    #             response = requests.get(sample_url, verify=False, timeout=5)
+    #             if '<form' in response.text.lower():
+    #                 print(f"      📝 Found form in: {sample_url}")
+    #             else:
+    #                 print(f"      ❌ No form in: {sample_url}")
+    #         except Exception as e:
+    #             print(f"      ⚠️ Error checking form: {e}")
+        
+    # except Exception as e:
+    #     print(f"❌ Debug POST endpoints failed: {e}")
+
+
+
+
+
+
+
 
 
     print('>>> Bắt đầu Active scan (iterate targets cùng thư mục với target_url)...')
+
+
+
     try:
+            # Cấu hình injectable parameters cho Path Traversal
+        print(">>> Cấu hình injectable parameters cho Path Traversal...")
+        
+        # ✅ ĐÚNG - Bỏ dấu ngoặc đơn ()
+        cur = int(zap.ascan.option_target_params_injectable)  # Không có ()
+        WANT = 1 | 2 | 16   # Query + POST + Path
+        print(f'injectable before: {cur} (binary: {bin(cur)})')
+        
+        result = zap.ascan.set_option_target_params_injectable(cur | WANT)
+        print(f'set result: {result}')
+        
+        # ✅ ĐÚNG - Bỏ dấu ngoặc đơn ()
+        after = int(zap.ascan.option_target_params_injectable)  # Không có ()
+        print(f'injectable after: {after} (binary: {bin(after)})')
+        
+        # Các options khác
+        zap.ascan.set_option_inject_plugin_id_in_header(True)
+        
+        print("✅ Đã cấu hình injectable parameters")
+
+
+
         parsed = urlparse(target_url)
         base = f"{parsed.scheme}://{parsed.netloc}"
 
@@ -167,16 +309,13 @@ def run_zap_scan(target_url: str):
         urls_all = set(zap.core.urls())
         candidates = urls_spider | urls_all
 
-        targets = [u for u in candidates if u.startswith(base) and u.startswith(start_prefix)]
+        # targets = [u for u in candidates if u.startswith(base) and u.startswith(start_prefix)]
+        targets = candidates
 
         print(f"   Tổng URL đã biết: {len(candidates)} | Mục tiêu cùng thư mục: {len(targets)}")
-        for u in targets[:10]:
-            print(f"      - {u}")
 
         policy_name = 'ComprehensiveScan'
         existing_policies = [p['name'] for p in zap.ascan.policies()]
-        # if policy_name in existing_policies:
-        #     zap.ascan.remove_scan_policy(policy_name)
         if policy_name in existing_policies:
             try:
                 zap.ascan.remove_scan_policy(policy_name)
@@ -187,19 +326,18 @@ def run_zap_scan(target_url: str):
         zap.ascan.add_scan_policy(policy_name)
         zap.ascan.disable_all_scanners(scanpolicyname=policy_name)
         
-        # important_scanners = [
+        # important_scanners = [        
         #     '40012',  # Cross Site Scripting (Reflected)
         #     '40014',  # Cross Site Scripting (Persistent)
         #     '40016',  # Cross Site Scripting (Persistent) - Prime
         #     '40017',  # Cross Site Scripting (Persistent) - Spider
-        #     '40018',  # Cross Site Scripting (Persistent) - OData
         # ]
         # important_scanners = [
         #     '90019',  # Code Injection
         #     '90020',  # Command Injection
-        #     '90037',  # Remote OS Command Injection
+        #     '90037',  # Remote OS Command Injection (Time Based)
         # ]
-        # important_scanners = [
+        # important_scanners = [    # category này đưuọc bật trực tiếp từ passive scan
         #     '10010',  # Cookie No HttpOnly Flag
         #     '10011',  # Cookie Without Secure Flag
         #     '10054',  # Cookie without SameSite Attribute
@@ -207,14 +345,22 @@ def run_zap_scan(target_url: str):
         # important_scanners = [
         #     '40015',  # LDAP Injection
         # ]
+        # important_scanners = [
+        #     '6',    # Path Traversal
+        # ]
+        # important_scanners = [
+        #     '90021',  # Xpath Injection
+        # ]
         important_scanners = [
-        '6',    # Path Traversal
-        '6-1',
-        '6-2',
-        '6-3',
-        '6-4',
-        '6-5',
-    ]
+            '40018',  # SQL Injection (generic)
+            '40019',  # SQL Injection – MySQL (Time Based)
+            '40020',  # SQL Injection – Hypersonic SQL (Time Based)
+            '40021',  # SQL Injection – Oracle (Time Based)
+            '40022',  # SQL Injection – PostgreSQL (Time Based)
+            '40024',  # SQL Injection – SQLite (Time Based)
+            '40027',  # SQL Injection – MsSQL (Time Based)
+            '90018',  # Advanced SQL Injection (beta)   bỏ đi vì quá lâu > 2 tiếng
+        ]
 
 
 
@@ -227,9 +373,15 @@ def run_zap_scan(target_url: str):
         scanners = zap.ascan.scanners(scanpolicyname=policy_name)
         for scanner in scanners:
             if scanner['enabled'] == 'true':
-                zap.ascan.set_scanner_alert_threshold(scanner['id'], 'MEDIUM', scanpolicyname=policy_name)
-                zap.ascan.set_scanner_attack_strength(scanner['id'], 'MEDIUM', scanpolicyname=policy_name)
+                zap.ascan.set_scanner_alert_threshold(scanner['id'], 'Low', scanpolicyname=policy_name)
+                zap.ascan.set_scanner_attack_strength(scanner['id'], 'Insane', scanpolicyname=policy_name)
         print(f"✅ Đã cấu hình policy với {len([s for s in scanners if s['enabled'] == 'true'])} scanners")
+
+        #thêm 1 lần quét recurse=True ở thư mục gốc để chắc chắn rule có đất diễn
+        root_to_scan = start_prefix
+        scan_id = zap.ascan.scan(root_to_scan, recurse=True, scanpolicyname=policy_name)
+        while int(zap.ascan.status(scan_id)) < 100:
+            time.sleep(2)
 
         for idx, url in enumerate(targets, 1):
             print(f"   ▶️ Scan {idx}/{len(targets)}: {url}")
@@ -246,7 +398,6 @@ def run_zap_scan(target_url: str):
 
             time.sleep(2)
             while int(zap.ascan.status(scan_id)) < 100:
-                # progress = zap.ascan.status(scan_id)
                 try:
                     progress = zap.ascan.status(scan_id)
                     progress_int = int(progress)
@@ -275,6 +426,9 @@ def run_zap_scan(target_url: str):
         return False
 
     try:
+        # Chờ một chút để alerts được xử lý
+        time.sleep(5)
+
         alerts = zap.core.alerts()
         print(f"🔍 Tìm thấy {len(alerts)} alerts")
         risk_counts = {}

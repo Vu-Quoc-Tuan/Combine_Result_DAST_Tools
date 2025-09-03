@@ -1,6 +1,7 @@
 import uuid
 import re
-from urllib.parse import unquote_plus
+from urllib.parse import unquote_plus, urlparse, parse_qs
+from typing import Dict, List, Set, Tuple
 
 def _build_wstg_taxonomy_entry(wstg_ids: set) -> dict:
     wstg_taxonomy = {
@@ -222,9 +223,21 @@ def wapiti_to_sarif_converter(wapiti_json_data: dict) -> dict:
                             elif isinstance(instance["wstg"], str):
                                 all_unique_wstg_ids.add(instance["wstg"])
 
-    anomalies_list = wapiti_json_data.get("anomalies", [])
-    if isinstance(anomalies_list, list):
-        for anomaly in anomalies_list:
+    anomalies_section = wapiti_json_data.get("anomalies", [])
+    if isinstance(anomalies_section, dict):
+        for anomaly_type, anomaly_list in anomalies_section.items():
+            if isinstance(anomaly_list, list):
+                for anomaly in anomaly_list:
+                    if isinstance(anomaly, dict):
+                        anomaly["_wapiti_type_name"] = anomaly_type
+                        all_findings.append(anomaly)
+                        if "wstg" in anomaly and anomaly["wstg"]:
+                            if isinstance(anomaly["wstg"], list):
+                                all_unique_wstg_ids.update(anomaly["wstg"])
+                            elif isinstance(anomaly["wstg"], str):
+                                all_unique_wstg_ids.add(anomaly["wstg"])
+    elif isinstance(anomalies_section, list):
+        for anomaly in anomalies_section:
             if isinstance(anomaly, dict):
                 if "info" in anomaly and "error" in anomaly["info"].lower():
                     anomaly["_wapiti_type_name"] = "Internal Server Error"
@@ -333,7 +346,7 @@ def wapiti_to_sarif_converter(wapiti_json_data: dict) -> dict:
         
         # add
         url_artifact = find_artifact_location_uri(finding)
-        payload = find_payload(url_artifact)
+        payload = get_payload_from_url(url_artifact)[2]
         
         result_entry = {
             "level": sarif_level,
@@ -386,21 +399,21 @@ def find_artifact_location_uri(finding):
         return f"{url_dest}?{req_body}"
     return url_dest
 
-def find_payload(url_artifact):
-    pairs = url_artifact.split("&")
-    pattern = re.compile(r'(?i)(%3c|%3e|<|>|script|onerror|onload)')
-    payload_raw = None
-    for pair in pairs:
-        if "=" in pair:
-            key, val = pair.split("=", 1)
-        else:
-            key, val = pair, ""
-        if pattern.search(val):
-            payload_raw = val
-            break
-    if payload_raw is None:
-        return ""
-    return unquote_plus(payload_raw)
+# def find_payload(url_artifact):
+#     pairs = url_artifact.split("&")
+#     pattern = re.compile(r'(?i)(%3c|%3e|<|>|script|onerror|onload)')
+#     payload_raw = None
+#     for pair in pairs:
+#         if "=" in pair:
+#             key, val = pair.split("=", 1)
+#         else:
+#             key, val = pair, ""
+#         if pattern.search(val):
+#             payload_raw = val
+#             break
+#     if payload_raw is None:
+#         return ""
+#     return unquote_plus(payload_raw)
 
 def find_start_line(payload, finding):
     body = ((finding.get("detail", {}) or {}).get("response") or {}).get("body", "")
@@ -411,3 +424,116 @@ def find_start_line(payload, finding):
         if payload in line:
             return i + 1
     return None
+
+
+# --- find payload ---
+VULN_PATTERNS: Dict[str, List[str]] = {
+    # XSS (reflected/DOM): thẻ script, handler, URL JS, event
+    "XSS": [
+        r"<\s*script\b", r"%3c\s*script", r"javascript\s*:", r"data\s*:\s*text/html",
+        r"onerror\s*=", r"onload\s*=", r"onmouseover\s*=", r"onfocus\s*=", r"onclick\s*=",
+        r"<\s*img\b.*onerror\s*=", r"<\s*svg\b.*onload\s*=", r"</\s*script\s*>",
+        r"document\s*\.", r"window\s*\.", r"eval\s*\(", r"setTimeout\s*\(", r"Function\s*\(",
+    ],
+
+    # SQL injection: các chuỗi hay gặp; có cả URL-encoded
+    "SQLi": [
+        r"(?<!\w)union\s+select(?!\w)", r"(?<!\w)or\s+1\s*=\s*1(?!\w)", r"(?<!\w)and\s+1\s*=\s*1(?!\w)",
+        r"(?<!\w)or\b.+\b=\b", r"(?<!\w)and\b.+\b=\b", r"\'\s*or\s*\'", r"\"\s*or\s*\"",
+        r"\bwaitfor\s+delay\b", r"\bsleep\s*\(", r"\bdatabase\(\)", r"\bversion\(\)", r"\bextractvalue\s*\(",
+        r"%27", r"%22", r"%2d%2d", r"--\s", r";\s*shutdown", r";\s*drop\b", r"\bxp_cmdshell\b",
+    ],
+
+    # Path traversal / LFI/RFI
+    "PathTraversal": [
+        r"\.\./", r"\.\.\\", r"\.\.\/", r"\.\.\\\\", r"%2e%2e%2f", r"%2e%2e%5c",
+        r"%252e%252e%252f", r"%c0%ae%c0%ae%c0%af", r"%u002e%u002e%u002f",
+        r"/etc/passwd", r"/etc/shadow", r"/windows/win.ini", r"/boot.ini",
+        r"proc/self/environ", r"usr/bin/passwd",
+        r"(?:file|ftp|php|jar|gopher|dict|tftp|ldap|ldaps):\/\/",
+        r"\x00", r"%00"
+    ],
+
+    # Command Injection (OS)
+    "CommandInjection": [
+        r";\s*\w+", r"\|\s*\w+", r"&&\s*\w+", r"\$\(", r"`.*?`",
+        r"%26%26", r"%7c", r"\bcat\s+/etc/passwd\b", r"\bwget\s+http",
+    ],
+
+    # SSRF (URL-scheme + nội bộ)
+    "SSRF": [
+        r"(?:http|https|ftp|file|gopher|dict|ldap|ldaps|tftp):\/\/",
+        r"\b(127\.0\.0\.1|0\.0\.0\.0|169\.254\.\d+\.\d+|localhost|::1)\b",
+        r"\b169\.254\.169\.254\b",  # AWS metadata
+    ],
+
+    # LDAP Injection
+    "LDAPi": [
+        r"\(\|\)", r"\(\&\)", r"\(\!\)", r"\(\w+=\*\)", r"\(\w+=\*.+\*\)",
+        r"\*\)\s*\(",  # close-and-open condition
+    ],
+
+    # NoSQL Injection (Mongo-like)
+    "NoSQLi": [
+        r"\$ne\b", r"\$gt\b", r"\$lt\b", r"\$in\b", r"\$regex\b", r"\{\s*\$",
+    ],
+
+    # XXE (tải external entity trong XML)
+    "XXE": [
+        r"<!DOCTYPE\s", r"<!ENTITY\s", r"system\s+['\"]file:", r"system\s+['\"]http",
+    ],
+
+    # Open Redirect
+    "OpenRedirect": [
+        r"(?:^|[?&])(url|next|target|redir|redirect|dest|destination)=https?%3a%2f%2f",
+        r"(?:^|[?&])(url|next|target|redir|redirect|dest|destination)=https?://",
+        r"(?:^|[?&])(url|next|target|redir|redirect|dest|destination)=//",  # schemaless
+    ],
+
+    # Header Injection / CRLF
+    "CRLF": [
+        r"%0d%0a", r"\r\n", r"%0a", r"%0d"
+    ],
+}
+
+# Pre-compile
+VULN_REGEX: Dict[str, List[re.Pattern]] = {
+    k: [re.compile(p, re.IGNORECASE) for p in pats]
+    for k, pats in VULN_PATTERNS.items()
+}
+
+def detect_payload_types(value: str) -> Set[str]:
+    """Trả về tập các loại lỗ hổng mà value 'ngửi thấy'."""
+    print(f"   [Payload tìm thấy] {value}")
+    if value is None:
+        return set()
+    s = value if isinstance(value, str) else str(value)
+    types = set()
+    for vtype, regs in VULN_REGEX.items():
+        for rg in regs:
+            if rg.search(s):
+                print(f"   [Payload] {s} | {vtype}")
+                types.add(vtype)
+                break
+    return types
+
+def get_payload_from_url(url: str) -> Tuple[str, Set[str], str]:
+    """
+    Trả về: (param_name | 'None', {types}, raw_value | '')
+    - Nếu nhiều param trúng: trả cái đầu tiên
+    """
+    if not url:
+        return "None", set(), ""
+    print(url)
+    url = url.replace("\\", "")
+    p = urlparse(url)
+    print(p)
+    qs = parse_qs(p.query, keep_blank_values=True)
+    print(qs)
+    for key, vals in qs.items():
+        for raw in vals:
+            # print(raw)
+            types = detect_payload_types(raw)
+            if types:
+                return key, types, raw
+    return "None", set(), ""

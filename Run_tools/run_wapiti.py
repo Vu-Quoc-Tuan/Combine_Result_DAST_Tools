@@ -19,7 +19,7 @@ def run_wapiti_scan(target_url: str):
     command = [
         wapiti_path,
         '-u', target_url,
-        '-m', 'file',
+        '-m', 'xss',
         '--scope', 'domain',
         '--flush-session',
         '--max-links-per-page', '500',
