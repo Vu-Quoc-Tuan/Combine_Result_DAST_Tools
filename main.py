@@ -36,8 +36,8 @@ def main_workflow():
         print("\nChờ 5 giây trước khi chuyển sang giai đoạn hợp nhất...\n")
         # time.sleep(5)
         
-        # # Giai đoạn 2: Hợp nhất báo cáo
-        start_merge()
+        # Giai đoạn 2: Hợp nhất báo cáo
+        # start_merge()
     
     print("\n==========================================")
     print("==      WORKFLOW ĐÃ HOÀN TẤT          ==")

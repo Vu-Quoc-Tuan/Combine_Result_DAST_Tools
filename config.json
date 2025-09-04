@@ -10,9 +10,14 @@
   },
   "wapiti": {
     "path": "wapiti",
-    "report_file": "Report/Raw/Wapiti_report/wapiti_sarif.json"
+    "report_file": "Report/Raw/Wapiti_report/wapiti_json.json"
   },
   "merge": {
     "output_file": "Report/Combine_report/merged_sarif.json"
+  },
+  "juice": {
+    "base_url": "http://localhost:3000",
+    "email": "tuan@gmail.com",
+    "password": "12345"
   }
 }

@@ -14,8 +14,8 @@ def start_scans(target_url: str):
         print("❌ LỖI: URL mục tiêu phải bắt đầu bằng 'http://' hoặc 'https://'.")
         return
 
-    wapiti_success = run_wapiti_scan(target_url)  
-    # wapiti_success = True  
+    # wapiti_success = run_wapiti_scan(target_url)  
+    wapiti_success = True  
 
     run_zap_proxy()
     time.sleep(20)
